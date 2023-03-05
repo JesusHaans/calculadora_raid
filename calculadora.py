@@ -180,6 +180,120 @@ def raid6():
     print("El tamaño de recuperacion del RAID es",(minimo*2),"GB")
     print (" ")
 
+#Funcion para calcular el RAID 0+1
+def raid0mas1():
+    array = []
+    print (" ")
+    print("RAID 0+1")
+    print (" ")
+    print("Introduce el numero de discos que quieres usar")
+    ##print (" ")
+    correcto = False
+    discos = 0
+    while (not correcto):
+        discos = pedirNumeroEntero()
+        if(discos >= 4 & discos%2 == 0):
+            correcto = True
+        else:
+            print (" ")
+            print("El numero de discos debe ser mayor o igual a 4 y multipulo de 2")
+            ##print (" ")
+    array = llenarArray(discos)
+    minimo = np.min(array)
+    print (" ")
+    print("El tamaño del RAID es",(minimo*(discos//2)),"GB")
+    ##print (" ")
+    arrayexceso = []
+    exceso = 0
+    for i in range (0,discos):
+        if(array[i] > minimo):
+            arrayexceso.append(array[i])
+    for i in range (0,len(arrayexceso)):
+        arrayexceso[i] = arrayexceso[i] - minimo
+    for i in range (0,len(arrayexceso)):
+        exceso = exceso + arrayexceso[i]
+    print (" ")
+    print("El tamaño sin uso del RAID es",exceso,"GB")
+    print (" ")
+    print("El tamaño de recuperacion del RAID es",(minimo*(discos//2)),"GB")
+    print (" ")
+
+#Funcion para calcular el RAID 5+0
+def raid5mas0():
+    array = []
+    print (" ")
+    print("RAID 5+0")
+    print (" ")
+    print("Introduce el numero de discos que quieres usar")
+    ##print (" ")
+    correcto = False
+    discos = 0
+    while (not correcto):
+        discos = pedirNumeroEntero()
+        if(discos >= 6):
+            correcto = True
+        else:
+            print (" ")
+            print("El numero de discos debe ser mayor o igual a 6")
+            ##print (" ")
+    array = llenarArray(discos)
+    minimo = np.min(array)
+    print (" ")
+    print("El tamaño del RAID es",(minimo*(discos-2)),"GB")
+    ##print (" ")
+    arrayexceso = []
+    exceso = 0
+    for i in range (0,discos):
+        if(array[i] > minimo):
+            arrayexceso.append(array[i])
+    for i in range (0,len(arrayexceso)):
+        arrayexceso[i] = arrayexceso[i] - minimo
+    for i in range (0,len(arrayexceso)):
+        exceso = exceso + arrayexceso[i]
+    print (" ")
+    print("El tamaño sin uso del RAID es",exceso,"GB")
+    print (" ")
+    print("El tamaño de recuperacion del RAID es",(minimo*2),"GB")
+    print (" ")
+
+#Funcion para calcular el RAID 6+0
+def raid6mas0():
+    array = []
+    print (" ")
+    print("RAID 6+0")
+    print (" ")
+    print("Introduce el numero de discos que quieres usar")
+    ##print (" ")
+    correcto = False
+    discos = 0
+    while (not correcto):
+        discos = pedirNumeroEntero()
+        if(discos >= 8):
+            correcto = True
+        else:
+            print (" ")
+            print("El numero de discos debe ser mayor o igual a 8")
+            ##print (" ")
+    array = llenarArray(discos)
+    minimo = np.min(array)
+    print (" ")
+    print("El tamaño del RAID es",(minimo*(discos-2)),"GB")
+    ##print (" ")
+    arrayexceso = []
+    exceso = 0
+    for i in range (0,discos):
+        if(array[i] > minimo):
+            arrayexceso.append(array[i])
+    for i in range (0,len(arrayexceso)):
+        arrayexceso[i] = arrayexceso[i] - minimo
+    for i in range (0,len(arrayexceso)):
+        exceso = exceso + arrayexceso[i]
+    print (" ")
+    print("El tamaño sin uso del RAID es",exceso,"GB")
+    print (" ")
+    print("El tamaño de recuperacion del RAID es",(minimo*4),"GB")
+    print (" ")
+
 #Menu Principal donde usaremos para la eleccion de los RAID
 def menu():
     salir = False
@@ -216,12 +330,17 @@ def menu():
             raid6()
         elif opcion == 5:
             print ("Opcion RAID 1+0")
+            raid0mas1()
         elif opcion == 6:
             print("Opcion RAID 0+1")
+            #aqui podem,os usar el mismo que 0+1 ya que las cantidades son las mismas solo cambia el orden logico de como se guardan los datos
+            raid0mas1()
         elif opcion == 7:
             print("Opcion RAID 5+0")
+            raid5mas0()
         elif opcion == 8:
             print ("Opcion RAID 6+0")
+            raid6mas0()
         elif opcion == 9:
             salir = True
         else:
