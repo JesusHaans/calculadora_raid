@@ -101,7 +101,7 @@ def raid1():
     print (" ")
     print("El tamaño sin uso del RAID es",exceso,"GB")
     print (" ")
-    print("El tamaño de recuperacion del RAID es",(minimo),"GB")
+    print("El tamaño de recuperacion del RAID es",(minimo*(discos-1)),"GB")
     print (" ")
 
 #Funcion para calcular el RAID 5
@@ -185,6 +185,44 @@ def raid0mas1():
     array = []
     print (" ")
     print("RAID 0+1")
+    print (" ")
+    print("Introduce el numero de discos que quieres usar")
+    ##print (" ")
+    correcto = False
+    discos = 0
+    while (not correcto):
+        discos = pedirNumeroEntero()
+        if(discos >= 4 & discos%2 == 0):
+            correcto = True
+        else:
+            print (" ")
+            print("El numero de discos debe ser mayor o igual a 4 y multipulo de 2")
+            ##print (" ")
+    array = llenarArray(discos)
+    minimo = np.min(array)
+    print (" ")
+    print("El tamaño del RAID es",(minimo*2),"GB")
+    ##print (" ")
+    arrayexceso = []
+    exceso = 0
+    for i in range (0,discos):
+        if(array[i] > minimo):
+            arrayexceso.append(array[i])
+    for i in range (0,len(arrayexceso)):
+        arrayexceso[i] = arrayexceso[i] - minimo
+    for i in range (0,len(arrayexceso)):
+        exceso = exceso + arrayexceso[i]
+    print (" ")
+    print("El tamaño sin uso del RAID es",exceso,"GB")
+    print (" ")
+    print("El tamaño de recuperacion del RAID es",(minimo*(discos-2)),"GB")
+    print (" ")
+
+#Funcion para calcular el RAID 0+1
+def raid1mas0():
+    array = []
+    print (" ")
+    print("RAID 1+0")
     print (" ")
     print("Introduce el numero de discos que quieres usar")
     ##print (" ")
@@ -330,7 +368,7 @@ def menu():
             raid6()
         elif opcion == 5:
             print ("Opcion RAID 1+0")
-            raid0mas1()
+            raid1mas0()
         elif opcion == 6:
             print("Opcion RAID 0+1")
             #aqui podem,os usar el mismo que 0+1 ya que las cantidades son las mismas solo cambia el orden logico de como se guardan los datos
